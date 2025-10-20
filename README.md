@@ -16,6 +16,7 @@ This is the most lightweight aikyo starter kit template.
 - Launch the development servers:
   - `pnpm run dev` starts the companion loop (`tsx src/index.ts`).
   - `pnpm run dev:debug` runs the same loop with `DEBUG=libp2p:*` for verbose networking logs.
+  - Example Request: `cat example_request.json | jq -cM . | websocat ws://localhost:8080`
 
 The default entry point boots two companions (`kyoko` and `aya`) and the Firehose server on port `8080`.
 
