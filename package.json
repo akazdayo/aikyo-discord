@@ -5,7 +5,7 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "tsx ./src/index.ts",
+    "dev": "tsx --env-file .env ./src/index.ts",
     "dev:debug": "DEBUG=libp2p:* pnpm run dev"
   },
   "keywords": [],
