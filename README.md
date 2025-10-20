@@ -11,7 +11,7 @@ This is the most lightweight aikyo starter kit template.
   ```
 - Provide an Anthropic API key (needed by the bundled companions):
   ```bash
-  export ANTHROPIC_API_KEY=sk-ant-...
+  echo "ANTHROPIC_API_KEY=sk-ant-..." > .env
   ```
 - Launch the development servers:
   - `pnpm run dev` starts the companion loop (`tsx src/index.ts`).
