@@ -10,7 +10,6 @@ import type {
   CompanionDiscordClient,
   DiscordCompanion,
 } from "./utils/types/discordClient";
-import type { Request } from "./utils/types/firehose";
 
 const FIREHOSE_PORT = 8080;
 const ws = new WebSocket(`ws://localhost:${FIREHOSE_PORT}`);
@@ -40,14 +39,16 @@ export const discordClient = new DiscordClient(companions, async (client) => {
   console.log(`Logged in: ${client.user?.tag}`);
 });
 
-discordClient.setEventListener(
+discordClient.setSingleEventListener(
+  companions[0].agent.companion.metadata.id,
   "messageCreate",
-  async (companionDiscordClient: CompanionDiscordClient, message: Message) => {
-    const client = companionDiscordClient.client;
+  async (client: CompanionDiscordClient[], message: Message) => {
     if (message.author.bot) return; // Ignore messages from bots
 
     // Check if the bot is mentioned in the message
-    const mentioned = message.mentions.users.has(client.user!.id!);
+    const mentioned = client.filter((c) =>
+      message.mentions.users.has(c.client.user!.id!),
+    );
     if (!mentioned) return;
 
     if (!ws.OPEN) return;
@@ -61,7 +62,7 @@ discordClient.setEventListener(
           id: uuid,
           message: message.content,
           from: `user_${message.author.username}`,
-          to: [companionDiscordClient.id],
+          to: mentioned.map((c) => c?.id),
         },
       },
     };

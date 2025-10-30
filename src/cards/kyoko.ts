@@ -42,7 +42,7 @@ export const companionCard: CompanionCard = {
         expression: "already_replied == false",
         execute: [
           {
-            instruction: "自己紹介をする。",
+            instruction: "自己紹介をしながら、返信する。",
             tool: speakTool,
           },
         ],

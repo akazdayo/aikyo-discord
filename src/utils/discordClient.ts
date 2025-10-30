@@ -72,4 +72,13 @@ export class DiscordClient implements Discord {
       client.on(eventId, (...args) => listener(companionClient, ...args));
     });
   }
+
+  async setSingleEventListener(
+    companionId: string,
+    eventId: string,
+    listener: (client: CompanionDiscordClient[], ...args: any[]) => void,
+  ) {
+    const client = this.clients.find((c) => c.id === companionId);
+    client?.client.on(eventId, (...args) => listener(this.clients, ...args));
+  }
 }
