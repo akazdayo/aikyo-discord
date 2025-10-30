@@ -19,7 +19,13 @@ export class DiscordClient implements Discord {
     content: string,
   ): Promise<void> {
     try {
-      await this.clients[companionId].post(Routes.channelMessages(channelId), {
+      const client = this.clients.find((c) => c.id === companionId);
+      if (!client) {
+        throw new Error(
+          `Discord client for companion ${companionId} not found.`,
+        );
+      }
+      await client.client.post(Routes.channelMessages(channelId), {
         body: {
           content: content,
         },

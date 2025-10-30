@@ -61,7 +61,11 @@ export const companionCard: CompanionCard = {
   },
 };
 
-const DISCORD_TOKEN = process.env.DISCORD_BOT_TOKEN_KYOKO as string;
+const DISCORD_TOKEN = process.env.DISCORD_API_KEY_KYOKO;
+if (!DISCORD_TOKEN) {
+  throw new Error("DISCORD_API_KEY_KYOKO is not defined");
+}
+
 export const kyokoRestClient = new REST().setToken(DISCORD_TOKEN);
 
 export const kyokoHistory: Message[] = [];

@@ -20,14 +20,15 @@ export async function createFirehoseServer(port: number = 8080) {
   });
 
   await firehose.subscribe("messages", (data) => {
-    firehose.broadcastToClients(data);
-
     // Post message to Discord
+    console.log("sending discord...");
     discordClient.postMessage(
       data.params.from,
       discordChannelId,
       data.params.message,
     );
+    console.log("sended!");
+    firehose.broadcastToClients(data);
   });
 
   await firehose.subscribe("states", (data) => {

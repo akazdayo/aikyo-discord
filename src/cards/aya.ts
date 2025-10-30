@@ -61,7 +61,10 @@ export const companionCard: CompanionCard = {
   },
 };
 
-const DISCORD_TOKEN = process.env.DISCORD_BOT_TOKEN_AYA as string;
+const DISCORD_TOKEN = process.env.DISCORD_API_KEY_AYA;
+if (!DISCORD_TOKEN) {
+  throw new Error("DISCORD_API_KEY_AYA is not defined");
+}
 export const ayaRestClient = new REST().setToken(DISCORD_TOKEN);
 
 export const ayaHistory: Message[] = [];
