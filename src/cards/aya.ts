@@ -5,6 +5,7 @@ import {
   type Message,
 } from "@aikyo/server";
 import { companionNetworkKnowledge, speakTool } from "@aikyo/utils";
+import { REST } from "@discordjs/rest";
 
 export const companionCard: CompanionCard = {
   metadata: {
@@ -59,6 +60,9 @@ export const companionCard: CompanionCard = {
     ],
   },
 };
+
+const DISCORD_TOKEN = process.env.DISCORD_BOT_TOKEN_AYA as string;
+export const ayaRestClient = new REST().setToken(DISCORD_TOKEN);
 
 export const ayaHistory: Message[] = [];
 

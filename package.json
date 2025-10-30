@@ -6,7 +6,9 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "tsx --env-file .env ./src/index.ts",
-    "dev:debug": "DEBUG=libp2p:* pnpm run dev"
+    "dev:debug": "DEBUG=libp2p:* pnpm run dev",
+    "check": "biome check",
+    "check:fix": "biome check --fix"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +19,13 @@
     "@aikyo/firehose": "^1.5.6",
     "@aikyo/server": "^1.4.6",
     "@aikyo/utils": "^1.4.7",
+    "@discordjs/rest": "^2.6.0",
     "ai": "5.0.76",
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.2",
+    "discord-api-types": "^0.38.31",
     "tsx": "^4.20.5",
     "typescript": "^5.9.3"
   }

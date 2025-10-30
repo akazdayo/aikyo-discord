@@ -1,5 +1,12 @@
 import { Firehose } from "@aikyo/firehose";
+import { discordClient } from "..";
 import { speakDataSchema } from "./types/firehose";
+
+export const discordChannelId =
+  process.env.DISCORD_CHANNEL_ID ??
+  (() => {
+    throw new Error("DISCORD_CHANNEL_ID is not defined");
+  })();
 
 export async function createFirehoseServer(port: number = 8080) {
   // Create a new Firehose server
@@ -14,6 +21,13 @@ export async function createFirehoseServer(port: number = 8080) {
 
   await firehose.subscribe("messages", (data) => {
     firehose.broadcastToClients(data);
+
+    // Post message to Discord
+    discordClient.postMessage(
+      data.params.from,
+      discordChannelId,
+      data.params.message,
+    );
   });
 
   await firehose.subscribe("states", (data) => {
