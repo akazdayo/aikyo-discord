@@ -1,10 +1,10 @@
-import type { REST } from "@discordjs/rest";
+import type { Client } from "discord.js";
 import type { Companion } from "./companion";
 
 export interface Discord {
   clients: {
     id: string;
-    client: REST;
+    client: Client;
   }[];
   postMessage(
     companionId: string,
@@ -14,5 +14,5 @@ export interface Discord {
 }
 
 export interface DiscordCompanion extends Companion {
-  discordClient: REST;
+  discordToken: string | undefined;
 }

@@ -5,7 +5,6 @@ import {
   type Message,
 } from "@aikyo/server";
 import { companionNetworkKnowledge, speakTool } from "@aikyo/utils";
-import { REST } from "@discordjs/rest";
 
 export const companionCard: CompanionCard = {
   metadata: {
@@ -60,13 +59,6 @@ export const companionCard: CompanionCard = {
     ],
   },
 };
-
-const DISCORD_TOKEN = process.env.DISCORD_API_KEY_KYOKO;
-if (!DISCORD_TOKEN) {
-  throw new Error("DISCORD_API_KEY_KYOKO is not defined");
-}
-
-export const kyokoRestClient = new REST().setToken(DISCORD_TOKEN);
 
 export const kyokoHistory: Message[] = [];
 

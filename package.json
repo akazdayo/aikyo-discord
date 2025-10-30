@@ -19,8 +19,8 @@
     "@aikyo/firehose": "^1.5.6",
     "@aikyo/server": "^1.4.6",
     "@aikyo/utils": "^1.4.7",
-    "@discordjs/rest": "^2.6.0",
     "ai": "5.0.76",
+    "discord.js": "^14.24.1",
     "zod": "^3.25.76"
   },
   "devDependencies": {

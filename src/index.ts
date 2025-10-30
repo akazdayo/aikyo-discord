@@ -1,9 +1,5 @@
-import { ayaCompanionCard, ayaHistory, ayaRestClient } from "./cards/aya";
-import {
-  kyokoCompanionCard,
-  kyokoHistory,
-  kyokoRestClient,
-} from "./cards/kyoko";
+import { ayaCompanionCard, ayaHistory } from "./cards/aya";
+import { kyokoCompanionCard, kyokoHistory } from "./cards/kyoko";
 import { createCompanionServer } from "./utils/companion";
 import { DiscordClient } from "./utils/discordClient";
 import { createFirehoseServer } from "./utils/firehose";
@@ -13,12 +9,12 @@ export const companions: DiscordCompanion[] = [
   {
     agent: kyokoCompanionCard,
     history: kyokoHistory,
-    discordClient: kyokoRestClient,
+    discordToken: process.env.DISCORD_API_KEY_KYOKO,
   },
   {
     agent: ayaCompanionCard,
     history: ayaHistory,
-    discordClient: ayaRestClient,
+    discordToken: process.env.DISCORD_API_KEY_AYA,
   },
 ];
 
