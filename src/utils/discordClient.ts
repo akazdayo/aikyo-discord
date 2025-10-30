@@ -1,14 +1,16 @@
-import {
-  Client,
-  GatewayIntentBits,
-  Partials,
-  type TextChannel,
-} from "discord.js";
-import type { Discord, DiscordCompanion } from "./types/discordClient";
+import { Client, GatewayIntentBits, Partials } from "discord.js";
+import type {
+  CompanionDiscordClient,
+  Discord,
+  DiscordCompanion,
+} from "./types/discordClient";
 
 export class DiscordClient implements Discord {
-  clients: { id: string; client: Client }[];
-  constructor(companion: DiscordCompanion[]) {
+  clients: CompanionDiscordClient[];
+  constructor(
+    companion: DiscordCompanion[],
+    readyListener?: (c: Client<true>) => void,
+  ) {
     this.clients = companion.map((c) => {
       // initialize Discord client
       const client = new Client({
@@ -21,9 +23,13 @@ export class DiscordClient implements Discord {
       });
 
       // log when the client is ready
-      client.on("clientReady", () => {
-        console.log(`Logged in: ${client.user?.tag}`);
-      });
+      client.on(
+        "clientReady",
+        readyListener ??
+          (() => {
+            console.log(`Logged in: ${client.user?.tag}`);
+          }),
+      );
 
       // login to Discord
       if (!c.discordToken) throw new Error("Discord token is undefined");
@@ -49,9 +55,8 @@ export class DiscordClient implements Discord {
           `Discord client for companion ${companionId} not found.`,
         );
       }
-      const channel = client.client.channels.cache.get(
-        channelId,
-      ) as TextChannel;
+      const channel = client.client.channels.cache.get(channelId);
+      if (!channel?.isSendable()) throw new Error("Channel is not sendable");
       await channel.send(content);
     } catch (error) {
       console.error("Error posting message to Discord:", error);
@@ -60,10 +65,11 @@ export class DiscordClient implements Discord {
 
   async setEventListener(
     eventId: string,
-    listener: (client: Client<true>) => void,
+    listener: (client: CompanionDiscordClient, ...args: any[]) => void,
   ) {
-    this.clients.forEach(({ client }) => {
-      client.on(eventId, (c) => listener(c));
+    this.clients.forEach((companionClient) => {
+      const client = companionClient.client;
+      client.on(eventId, (...args) => listener(companionClient, ...args));
     });
   }
 }

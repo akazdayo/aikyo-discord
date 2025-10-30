@@ -21,10 +21,13 @@
     "@aikyo/utils": "^1.4.7",
     "ai": "5.0.76",
     "discord.js": "^14.24.1",
+    "ws": "^8.18.3",
     "zod": "^3.25.76"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.2",
+    "@types/node": "^24.9.2",
+    "@types/ws": "^8.18.1",
     "discord-api-types": "^0.38.31",
     "tsx": "^4.20.5",
     "typescript": "^5.9.3"

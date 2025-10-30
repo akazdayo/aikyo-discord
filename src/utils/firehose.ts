@@ -1,12 +1,6 @@
 import { Firehose } from "@aikyo/firehose";
-import { discordClient } from "..";
+import { discordChannelId, discordClient } from "..";
 import { speakDataSchema } from "./types/firehose";
-
-export const discordChannelId =
-  process.env.DISCORD_CHANNEL_ID ??
-  (() => {
-    throw new Error("DISCORD_CHANNEL_ID is not defined");
-  })();
 
 export async function createFirehoseServer(port: number = 8080) {
   // Create a new Firehose server

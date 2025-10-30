@@ -1,11 +1,13 @@
 import type { Client } from "discord.js";
 import type { Companion } from "./companion";
 
+export type CompanionDiscordClient = {
+  id: string;
+  client: Client;
+};
+
 export interface Discord {
-  clients: {
-    id: string;
-    client: Client;
-  }[];
+  clients: CompanionDiscordClient[];
   postMessage(
     companionId: string,
     channelId: string,
