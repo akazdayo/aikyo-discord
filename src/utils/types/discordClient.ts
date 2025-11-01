@@ -6,8 +6,14 @@ export type CompanionDiscordClient = {
   client: Client;
 };
 
+export type DiscordMessage = {
+  channelId: string;
+  messageId: string;
+};
+
 export interface Discord {
   clients: CompanionDiscordClient[];
+  latestMessage?: DiscordMessage;
   postMessage(
     companionId: string,
     channelId: string,

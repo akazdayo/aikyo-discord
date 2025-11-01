@@ -5,6 +5,7 @@ import {
   type Message,
 } from "@aikyo/server";
 import { companionNetworkKnowledge, speakTool } from "@aikyo/utils";
+import { reactionTool } from "../tools/discord/reaction";
 
 export const companionCard: CompanionCard = {
   metadata: {
@@ -54,6 +55,10 @@ export const companionCard: CompanionCard = {
             instruction: "ツールを使って返信する。",
             tool: speakTool,
           },
+          {
+            instruction: "リアクションをする",
+            tool: reactionTool,
+          },
         ],
       },
     ],
@@ -64,7 +69,7 @@ export const ayaHistory: Message[] = [];
 
 export const ayaCompanionCard = new CompanionAgent(
   companionCard,
-  anthropic("claude-haiku-4-5"),
+  anthropic("claude-3-5-haiku-latest"),
   ayaHistory,
   {
     enableRepetitionJudge: false,
